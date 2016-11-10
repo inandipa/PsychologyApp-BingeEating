@@ -25,7 +25,7 @@ add.post('/admin', function (req, res,next) {
 add.get('/user', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
-        if(!err && decoded.tag == 'admin') {
+        if(!err && ( decoded.tag == 'admin' || decoded.tag == 'supporter')) {
             mysql.getAllSupporter(function(model){
                 var data = JSON.stringify(model);
                 res.render('pages/addUser',{data:data});
