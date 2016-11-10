@@ -103,7 +103,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>User Name</th>
                 <th>Week</th>
                 <th>Binges</th>
                 <th>V/L/D</th>
@@ -114,7 +113,6 @@
             </thead>
             <tbody>
             <tr ng-repeat="x in weekData">
-                <td>{{ x.username }}</td>
                 <td>{{ x.Week }}</td>
                 <td>{{ x.Binges }}</a>
                 <td>{{ x.V/L/D }}</td>
@@ -128,9 +126,8 @@
         <h4>Daily Log<h4>
         <table class="table table-striped">
             <thead>
-            <font size = "10">
+            <font size = "8">
             <tr>
-                <th>User Name</th>
                 <th>Food and Drinks Consumed</th>
                 <th>No. of Serving of Veg</th>
                 <th>V/L</th>
@@ -141,7 +138,6 @@
             </thead>
             <tbody>
             <tr ng-repeat="x in dailyData">
-                <td>{{ x.username }}</td>
                 <td>{{ x.FoodAndDrinksConsumed }}</td>
                 <td>{{ x.NumberOfServingsOfVegetables }}</a>
                 <td>{{ x.AnyVomitingOrLaxativeUse }}</td>
