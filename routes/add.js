@@ -133,7 +133,11 @@ add.post('/user', function (req, res,next) {
                     mysql.putUser(data,function(user){
                         console.log(user);
                     });
-                    res.redirect('/admin/home');
+                    if(decoded.tag == 'supporter'){
+                        res.redirect('supporter/home');
+                    }else{
+                        res.redirect('admin/home');
+                    }
 
                 }else{
                     mysql.getAllSupporter(function(model){
