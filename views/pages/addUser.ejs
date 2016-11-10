@@ -99,18 +99,25 @@
     <h2 class="text-center">New User Form</h2>
     <form class="form-horizontal" action="/add/user" method="post">
         <div class="form-group">
-            <label class="col-sm-4 control-label">Email ID:</label>
+            <label class="col-sm-4 control-label">User Name:</label>
             <div class="col-sm-4">
                 <input class="form-control" name="username" type="text">
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>
         <div class="form-group">
+            <label class="col-sm-4 control-label">Password:</label>
+            <div class="col-sm-4">
+                <input class="form-control" name="password" type="password">
+            </div>
+            <label class="col-sm-4 control-label"></label>
+        </div>
+        <div class="form-group">
         <label class="col-sm-4 control-label" for="notification">Notification:</label>
             <div class="col-sm-4">
-            <select class="form-control" name="notification">
-                <option>Enabled</option>
-                <option>Disabled</option>
+            <select class="form-control" name="notifications">
+                <option value="Enabled">Enabled</option>
+                <option value="Disabled">Disabled</option>
             </select>
             </div>
             <div class="col-sm-4"></div>

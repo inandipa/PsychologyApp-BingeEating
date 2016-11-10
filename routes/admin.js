@@ -14,11 +14,6 @@ admin.get('/home', function (req, res,next) {
             console.log(decoded.user);
             user = decoded.user;
             res.render('pages/admin_dashboard');
-
-
-
-
-
         }else{
             console.log(err);
             user = null ;
