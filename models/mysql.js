@@ -43,6 +43,9 @@ var User = bookshelf.Model.extend({
 var Login = bookshelf.Model.extend({
 	tableName: 'Login'
 });
+var Appointment = bookshelf.Model.extend({
+    tableName: 'appointment'
+});
 
 module.exports.DailyQuestions = function(callback) {
 new DailyQuestion()
@@ -127,3 +130,9 @@ module.exports.getUserWeeklyLog = function(user,callback){
     new WeeklySummarySheet().where({username : user}).fetchAll().then(callback);
 }
 
+module.exports.putAppointment = function(data,callback){
+    new Appointment(data).save().then(callback);
+}
+module.exports.getAppointment = function(user,callback){
+    new Appointment().where({username : user}).fetchAll().then(callback);
+}
