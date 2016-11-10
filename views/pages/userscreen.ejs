@@ -125,31 +125,31 @@
             </tbody>
         </table>
 
-        <!--<h4>Daily Log<h4>-->
-        <!--<table class="table table-striped">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>User Name</th>-->
-                <!--<th>Week</th>-->
-                <!--<th>Binges</th>-->
-                <!--<th>V/L/D</th>-->
-                <!--<th>Good Days</th>-->
-                <!--<th>Weight</th>-->
-                <!--<th>F/V</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
-            <!--<tr ng-repeat="x in dailyData">-->
-                <!--<td>{{ x.username }}</td>-->
-                <!--<td>{{ x.Week }}</td>-->
-                <!--<td>{{ x.Binges }}</a>-->
-                <!--<td>{{ x.V/L/D }}</td>-->
-                <!--<td>{{ x.GoodDays }}</td>-->
-                <!--<td>{{ x.Weight }}</td>-->
-                <!--<td>{{ x.F/V }}</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-        <!--</table>-->
+        <h4>Daily Log<h4>
+        <table class="table table-striped">
+            <thead>
+            <font size = "10">
+            <tr>
+                <th>User Name</th>
+                <th>Food and Drinks Consumed</th>
+                <th>No. of Serving of Veg</th>
+                <th>V/L</th>
+                <th>Feelings</th>
+                <th>Time</th>
+            </tr>
+            </font>
+            </thead>
+            <tbody>
+            <tr ng-repeat="x in dailyData">
+                <td>{{ x.username }}</td>
+                <td>{{ x.FoodAndDrinksConsumed }}</td>
+                <td>{{ x.NumberOfServingsOfVegetables }}</a>
+                <td>{{ x.AnyVomitingOrLaxativeUse }}</td>
+                <td>{{ x.Feelings }}</td>
+                <td>{{ x.Time }}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
