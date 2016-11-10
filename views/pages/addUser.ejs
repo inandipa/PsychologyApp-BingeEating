@@ -77,12 +77,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/untitled2/details.html">BINGE WebApp</a>
+            <a class="navbar-brand" href="/login">BINGE WebApp</a>
         </div>
 
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/untitled2/addUser.html">Create a Patient</a></li>
+                <li><a href="/add">Create a Patient</a></li>
                 <li><a href="/untitled2/appointments.html">Appointments</a></li>
                 <li><a href="#">Notes</a></li>
             </ul>
@@ -97,50 +97,20 @@
 
 <div class="container">
     <h2 class="text-center">New User Form</h2>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-4 control-label">First Name:</label>
-            <div class="col-sm-4">
-                <input class="form-control" id="firstName" type="text">
-            </div>
-            <label class="col-sm-4 control-label"></label>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">Last Name:</label>
-            <div class="col-sm-4">
-                <input class="form-control" id="lastName" type="text">
-            </div>
-            <label class="col-sm-4 control-label"></label>
-        </div>
+    <form class="form-horizontal" action="/add/user" method="post">
         <div class="form-group">
             <label class="col-sm-4 control-label">Email ID:</label>
             <div class="col-sm-4">
-                <input class="form-control" id="emailid" type="text">
-            </div>
-            <label class="col-sm-4 control-label"></label>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-4 control-label">Age:</label>
-            <div class="col-sm-4">
-                <input class="form-control" id="age" type="number">
+                <input class="form-control" name="username" type="text">
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>
         <div class="form-group">
         <label class="col-sm-4 control-label" for="notification">Notification:</label>
             <div class="col-sm-4">
-            <select class="form-control" id="notification">
+            <select class="form-control" name="notification">
                 <option>Enabled</option>
                 <option>Disabled</option>
-            </select>
-            </div>
-            <div class="col-sm-4"></div>
-        </div>
-        <div ng-app="myApp" ng-controller="customersCtrl">
-            <label class="col-sm-4 control-label" for="notification">Suppoter:</label>
-            <div class="col-sm-4" >
-            <select class="form-control" ng-model="selectedName" ng-options="item.firstname for item in myData">
-
             </select>
             </div>
             <div class="col-sm-4"></div>
