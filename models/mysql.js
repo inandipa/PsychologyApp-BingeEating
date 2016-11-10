@@ -136,3 +136,7 @@ module.exports.putAppointment = function(data,callback){
 module.exports.getAppointment = function(user,callback){
     new Appointment().where({username : user}).fetchAll().then(callback);
 }
+
+module.exports.getAllAppointment = function(user,callback){
+    new Appointment().fetchAll().then(callback);
+}
