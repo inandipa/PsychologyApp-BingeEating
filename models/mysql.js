@@ -93,34 +93,37 @@ module.exports.getUser = function(user,callback) {
 		.then(callback);
 }
 module.exports.putSupporter = function(user,callback) {
-	console.log(user.username);
-
 	new Supporter(user).save()
 		.then(callback);
 
 }
 
 module.exports.getUserForSupporter = function(user,callback) {
-	console.log(user);
-
 	new User().where({supporter : user}).fetchAll().then(callback);
 }
 
 module.exports.putUser = function(user,callback) {
-
-	console.log(user.username);
-
 	new User(user).save()
 		.then(callback);
 }
 
-module.exports.getUserDailyLog = function(data,callback){
+module.exports.putUserDailyLog = function(data,callback){
     new DailyLog(data).save().then(callback);
 }
-module.exports.getUserDailyActivities = function(data,callback){
+module.exports.putUserDailyActivities = function(data,callback){
     new DailyPhysicalActivity(data).save().then(callback);
 }
-module.exports.getUserWeeklyLog = function(data,callback){
+module.exports.putUserWeeklyLog = function(data,callback){
     new WeeklySummarySheet(data).save().then(callback);
+}
+
+module.exports.getUserDailyLog = function(user,callback){
+    new DailyLog().where({username : user}).fetchAll().then(callback);
+}
+module.exports.getUserDailyActivities = function(user,callback){
+    new DailyPhysicalActivity().where({username : user}).fetchAll().then(callback);
+}
+module.exports.getUserWeeklyLog = function(user,callback){
+    new WeeklySummarySheet().where({username : user}).fetchAll().then(callback);
 }
 

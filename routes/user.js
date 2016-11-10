@@ -61,7 +61,7 @@ questions.post('/DailyLog', function (req, res,next) {
         if (!err && decoded.tag == 'user') {
             var data = req.body;
             data.username = decoded.user;
-            mysql.getUserDailyLog(data,function (model) {
+            mysql.putUserDailyLog(data,function (model) {
                 if(model == null){
                     res.json({statusCode : 200 , message:"data not stored"})
                 }else{
@@ -87,7 +87,7 @@ questions.post('/DailyActivities', function (req, res,next) {
         if (!err && decoded.tag == 'user') {
             var data = req.body;
             data.username = decoded.user;
-            mysql.getUserDailyActivities(data,function (model) {
+            mysql.putUserDailyActivities(data,function (model) {
                 if(model == null){
                     res.json({statusCode : 200 , message:"data not stored"})
                 }else{
@@ -114,7 +114,7 @@ questions.post('/WeeklyResponse', function (req, res,next) {
         if (!err && decoded.tag == 'user') {
             var data = req.body;
             data.username = decoded.user;
-            mysql.getUserWeeklyLog(data,function (model) {
+            mysql.putUserWeeklyLog(data,function (model) {
                 if(model == null){
                     res.json({statusCode : 200 , message:"data not stored"})
                 }else{
