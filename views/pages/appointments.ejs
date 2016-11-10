@@ -98,25 +98,24 @@
 </div>
 
 <div class="container">
-    <form action="/appointment" class="form-horizontal">
+    <form action="/appointment" method="post" class="form-horizontal">
         <div class="form-group">
-            <label class="col-sm-4 control-label">User Name:</label>
             <div class="col-sm-4">
-                <input class="form-control" id="emailid" type="text">
+                <input class="form-control" id="emailid" type="hidden" value=<%-data%>>
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Date:</label>
             <div class="col-sm-4">
-                <input class="form-control" id="date" type="date" value="">
+                <input class="form-control" name="date" type="date">
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>
         <div class="form-group">
             <label class="col-sm-4 control-label">Time:</label>
             <div class="col-sm-4">
-                <input class="form-control" id="time" type="time" value="">
+                <input class="form-control" name="time" type="time">
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>

@@ -33,15 +33,15 @@ appointment.post('/', function (req, res,next) {
 
     verify_token.verify(req.session.token,function(err, decoded) {
 
-        console.log(decoded);
         if(!err && decoded.tag == 'supporter'){
+            console.log(req.body);
             supporter = decoded.user;
             var data  = req.body;
             mysql.getAppointment(data , function (model) {
                 if(model != null){
                     res.redirect('/supporter/home');
                 }else{
-                    res.render('pages/appointment');
+                    res.render('pages/appointments');
                 }
             })
         }else{
