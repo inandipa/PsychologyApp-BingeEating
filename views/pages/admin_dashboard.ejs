@@ -86,29 +86,7 @@
     }
 </style>
 
-<script>
-    var data = <%-data%>;
-    var app = angular.module('myApp', []);
-    app.controller('userCtrl', function($scope) {
-        $scope.myData = data;
-        console.log("I am here " + $scope.myData[0]);
 
-        $scope.removeRow = function (username) {
-            var index = -1;
-            var comArr = eval($scope.myData);
-            for (var i = 0; i < comArr.length; i++) {
-                if (comArr[i].username === username) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index === -1) {
-                alert("Something gone wrong");
-            }
-            $scope.companies.splice(index, 1);
-        };
-    });
-</script>
 
 <body>
 
