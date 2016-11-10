@@ -18,6 +18,46 @@
   <!-- Custom styles for this template -->
   <link href="/dashboard.css" rel="stylesheet">
 
+  <script type="text/javascript">
+
+    var data = <%-data%>
+            console.log(data);
+    $(document).ready(function() {
+      $('#datatables').DataTable({
+        data: data,
+        columns: [
+          {'data': 'username'},
+
+          {
+            'data': 'username', "render": function (data, type, full, meta) {
+            return '<a href="report?id=' + data + '" >View Reports</a>';
+          }
+          },
+          {
+            'data': 'username', "render": function (data, type, full, meta) {
+            return '<a href="progress?id=' + data + '" >Progress</a>';
+          }
+          },
+          {
+            'data': 'username', "render": function (data, type, full, meta) {
+            return '<a href="appointments?id=' + data + '" >Appointments</a>';
+          }
+          }
+        ]
+      });
+    });
+
+  </script>
+
+  <script>
+    var data = <%-data%>
+    var app = angular.module('myApp', []);
+    app.controller('userCtrl', function($scope) {
+        $scope.myData = data;
+        console.log("I am here " + $scope.myData[0]);
+    });
+  </script>
+
 </head>
 <style>
   body {
@@ -86,15 +126,9 @@
   }
 </style>
 
-<script>
 
-var app = angular.module('myApp', []);
-app.controller('customersCtrl', function($scope, $http) {
-  $http.get("/routes/supporter/home").then(function (response) {
-    $scope.myData = response.data.user;
-  });
-});
-</script>
+
+
 
 <body>
 
@@ -121,45 +155,45 @@ app.controller('customersCtrl', function($scope, $http) {
 
       <div class="row placeholders">
         <div class="col-xs-6 col-sm-6 placeholder">
-          <a href="/untitled2/addUser.html">
+          <a href="/add/user">
             <img src="/patient.png" width="600" height="600" class="img-fluid" alt="Add Patient">
           </a>
           <span class="text-muted"><h4>Add Patient</h4></span>
         </div>
         <div class="col-xs-6 col-sm-6 placeholder">
-          <a href="/untitled2/appointments.html">
+          <a href="/appointments">
             <img src="/appointment.png" width="310" height="310" class="img-fluid" alt="Appointments">
           </a>
           <span class="text-muted"><h4>Appointments</h4></span>
         </div>
       </div>
       <div>
-      <h2>Patient Table</h2>
-      <div class="table-responsive">
-        <div ng-app="myApp" ng-controller="customersCtrl">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>User Name</th>
-            <th>Supporter</th>
-            <th>Appointment</th>
-            <th>Notification</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="x in myData" | filter: myData.firstname ">
+        <h2>Patient Table</h2>
+
+        <div class="table-responsive" ng-app="myApp" ng-controller="userCtrl">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Supporter</th>
+              <th>Appointment</th>
+              <th>Notification</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="x in myData">
             <td>{{ x.username }}</td>
             <td>{{ x.supporter }}</td>
-            <td><a href="/untitled2/appointments.html">Schedule Meet</a></td>
+            <td><a ng-href="/appointment?username={{ x.username}}">schedule</a>
             <td>{{ x.notification }}</td>
-          </tr>
-          </tbody>
-        </table>
+            </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- Bootstrap core JavaScript
