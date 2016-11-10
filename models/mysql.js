@@ -15,8 +15,20 @@ var knex = require('knex')({
 
 var bookshelf = require('bookshelf')(knex);
  
-var Question = bookshelf.Model.extend({
-  tableName: 'Question'
+var DailyQuestion = bookshelf.Model.extend({
+  tableName: 'DailyQuestion'
+});
+var WeeklyQuestion = bookshelf.Model.extend({
+	tableName: 'WeeklyQuestion'
+});
+var DailyLog = bookshelf.Model.extend({
+    tableName: 'DailyLog'
+});
+var DailyPhysicalActivity = bookshelf.Model.extend({
+    tableName: 'DailyPhysicalActivity'
+});
+var WeeklySummarySheet = bookshelf.Model.extend({
+    tableName: 'WeeklySummarySheet'
 });
 
 var Admin = bookshelf.Model.extend({
@@ -32,13 +44,20 @@ var Login = bookshelf.Model.extend({
 	tableName: 'Login'
 });
 
-module.exports.Questions = function(callback) {
-new Question()
+module.exports.DailyQuestions = function(callback) {
+new DailyQuestion()
 .fetchAll()
 .then(callback);
 }
+
+module.exports.WeeklyQuestions = function(callback) {
+    new WeeklyQuestion()
+        .fetchAll()
+        .then(callback);
+}
+
 module.exports.getLoginDetails = function(user,callback) {
-	console.log(user)
+	console.log(user);
 	new Login({username: user })
 		.fetch()
 		.then(callback);
@@ -95,4 +114,13 @@ module.exports.putUser = function(user,callback) {
 		.then(callback);
 }
 
+module.exports.getUserDailyLog = function(data,callback){
+    new DailyLog(data).save().then(callback);
+}
+module.exports.getUserDailyActivities = function(data,callback){
+    new DailyPhysicalActivity(data).save().then(callback);
+}
+module.exports.getUserWeeklyLog = function(data,callback){
+    new WeeklySummarySheet(data).save().then(callback);
+}
 
