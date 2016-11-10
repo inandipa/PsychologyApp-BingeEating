@@ -134,9 +134,9 @@ add.post('/user', function (req, res,next) {
                         console.log(user);
                     });
                     if(decoded.tag == 'supporter'){
-                        res.redirect('supporter/home');
+                        res.redirect('/supporter/home');
                     }else{
-                        res.redirect('admin/home');
+                        res.redirect('/admin/home');
                     }
 
                 }else{
