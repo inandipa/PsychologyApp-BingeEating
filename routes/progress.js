@@ -8,12 +8,13 @@ var verify_token = require('../models/verify');
 
 admin.get('/', function (req, res,next) {
 
+    console.log()
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
             console.log(decoded.user);
             supporter = decoded.user;
-            user = req.query.user;
+            user = req.query.username;
 
             mysql.getUserWeeklyLog(user,function (model) {
                 if(model != null){
@@ -34,7 +35,7 @@ admin.get('/', function (req, res,next) {
                             if(model != null){
                                 console.log( JSON.stringify(model));
                                 var UserDetails = JSON.stringify(model);
-                                res.render('pages/test',{data:{WeelyLog: WeeklyLog , DailyActivities :DailyActivities,DailyLog:DailyLog,UserDetails:UserDetails }})
+                                res.render('pages/userscreen',{data:{WeelyLog: WeeklyLog , DailyActivities :DailyActivities,DailyLog:DailyLog,UserDetails:UserDetails }})
                             }
                         });
                     });

@@ -24,6 +24,21 @@
         app.controller('userCtrl', function($scope) {
             $scope.myData = data;
             console.log("I am here " + $scope.myData[0]);
+
+            $scope.removeRow = function (username) {
+                var index = -1;
+                var comArr = eval($scope.myData);
+                for (var i = 0; i < comArr.length; i++) {
+                    if (comArr[i].username === username) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index === -1) {
+                    alert("Something gone wrong");
+                }
+                $scope.companies.splice(index, 1);
+            };
         });
     </script>
 
@@ -147,14 +162,16 @@
                             <th>Supporter</th>
                             <th>Appointment</th>
                             <th>Notification</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="x in myData">
-                            <td>{{ x.username }}</td>
+                            <td><a ng-href="/progress?username={{ x.username}}">{{ x.username }}</td>
                             <td>{{ x.supporter }}</td>
                             <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a>
                             <td>{{ x.notification }}</td>
+                            <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow({{x.username}})"/></td>
                         </tr>
                         </tbody>
                     </table>
