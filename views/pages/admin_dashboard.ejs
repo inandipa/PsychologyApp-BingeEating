@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:filter="http://www.w3.org/1999/xhtml">
 <head>
+    <script type="text/javascript" language="javascript" src="jquery-1.8.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,11 +13,10 @@
     <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-    <link href="search.js" rel="script">
+    <link href="/dashboard.css" rel="stylesheet">
 
 </head>
 <style>
@@ -85,6 +86,10 @@
     }
 </style>
 
+
+
+
+
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -109,104 +114,49 @@
             <h1>Dashboard</h1>
 
             <div class="row placeholders">
-                <div class="col-xs-6 col-sm-6 placeholder">
-                    <a href="/untitled2/addUser.html">
-                        <img src="patient.png" width="600" height="600" class="img-fluid" alt="Generic placeholder thumbnail">
+                <div class="col-xs-4 col-sm-4 placeholder">
+                    <a href="/add/user">
+                        <img src="/patient.png" width="600" height="600" class="img-fluid" alt="Add Patient">
                     </a>
                     <span class="text-muted"><h4>Add Patient</h4></span>
                 </div>
-                <div class="col-xs-6 col-sm-6 placeholder">
-                    <a href="/untitled2/appointments.html">
-                        <img src="appointment.png" width="310" height="310" class="img-fluid" alt="Generic placeholder thumbnail">
+                <div class="col-xs-4 col-sm-4 placeholder">
+                    <a href="/appointments">
+                        <img src="/supporter.png" width="220" height="220" class="img-fluid" alt="Supporter">
+                    </a>
+                    <span class="text-muted"><h4>Add Supporter</h4></span>
+                </div>
+                <div class="col-xs-4 col-sm-4 placeholder">
+                    <a href="/appointments">
+                        <img src="/appointment.png" width="220" height="220" class="img-fluid" alt="Appointments">
                     </a>
                     <span class="text-muted"><h4>Appointments</h4></span>
                 </div>
             </div>
             <div>
                 <h2>Patient Table</h2>
-                <div class="form-group pull-right">
-                    <input type="text" class="search form-control" placeholder="What you looking for?">
-                </div>
-                <div class="table-responsive">
+
+                <div class="table-responsive" ng-app="myApp" ng-controller="userCtrl">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
+                            <th>User Name</th>
+                            <th>Supporter</th>
                             <th>Appointment</th>
                             <th>Notification</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class='clickable-row' data-href='https://www.google.com'>
-                            <td>1,001</td>
-                            <td>Lorem</td>
-                            <td>ipsum</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Enabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,002</td>
-                            <td>amet</td>
-                            <td>consectetur</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Disabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,003</td>
-                            <td>Integer</td>
-                            <td>nec</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Enabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,003</td>
-                            <td>libero</td>
-                            <td>Sed</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Disabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,004</td>
-                            <td>dapibus</td>
-                            <td>diam</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Enabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,005</td>
-                            <td>Nulla</td>
-                            <td>quis</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Enabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,006</td>
-                            <td>nibh</td>
-                            <td>elementum</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Enabled</td>
-                        </tr>
-                        <tr>
-                            <td>1,007</td>
-                            <td>sagittis</td>
-                            <td>ipsum</td>
-                            <td>30</td>
-                            <td><a href="signup.html">Schedule Meet</a> </td>
-                            <td>Disabled</td>
+                        <tr ng-repeat="x in myData">
+                            <td>{{ x.username }}</td>
+                            <td>{{ x.supporter }}</td>
+                            <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a>
+                            <td>{{ x.notification }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -216,10 +166,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="/jquery.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-<script src="bootstrap.min.js"></script>
+<script src="/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-<script src="holder.min.js"></script>
+<script src="/holder.min.js"></script>
 </body>
 </html>

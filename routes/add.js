@@ -28,7 +28,7 @@ add.get('/user', function (req, res,next) {
         if(!err && decoded.tag == 'admin') {
             mysql.getAllSupporter(function(model){
                 var data = JSON.stringify(model);
-                res.render('pages/add_user',{data:data});
+                res.render('pages/addUser',{data:data});
                     });
 
         }
@@ -109,6 +109,8 @@ add.post('/user', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'admin'){
+
+            console.log(req.body);
 
             mysql.getUser(req.body.username,function(model){
                 if(model ==  null){
