@@ -88,8 +88,8 @@ module.exports.getUserForSupporter = function(user,callback) {
 }
 
 module.exports.putUser = function(user,callback) {
-	user.password = bcrypt.hashSync(user.password, saltRounds);
-	console.log(user.username+' and '+user.password);
+
+	console.log(user.username);
 
 	new User(user).save()
 		.then(callback);

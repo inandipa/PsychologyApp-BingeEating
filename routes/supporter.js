@@ -10,7 +10,8 @@ supporter.get('/home', function (req, res,next) {
 
     verify_token.verify(req.session.token,function(err, decoded) {
 
-        if(!err && decoded.tag == 'supporter '){
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
             console.log(decoded.user);
             user = decoded.user;
             mysql.getUserForSupporter(user,function (model) {

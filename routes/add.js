@@ -131,9 +131,10 @@ add.post('/user', function (req, res,next) {
                     res.redirect('/admin/home');
 
                 }else{
-
-                    res.render('pages/add_user',{error : 'user already exists'});
-
+                    mysql.getAllSupporter(function(model){
+                        var data = JSON.stringify(model);
+                        res.render('pages/add_user',{data:data , error : 'user already exists' });
+                    });
                 }
             });
 
