@@ -17,13 +17,8 @@ supporter.get('/home', function (req, res,next) {
             mysql.getUserForSupporter(user,function (model) {
                 console.log(model);
                 var data = JSON.stringify(model);
-                res.render('pages/details',{data:data});
+                res.response('pages/details',{data:data});
             });
-
-
-
-
-
         }else{
             console.log(err);
             user = null ;
