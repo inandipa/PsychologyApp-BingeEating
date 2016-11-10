@@ -17,7 +17,7 @@ supporter.get('/home', function (req, res,next) {
             mysql.getUserForSupporter(user,function (model) {
                 console.log(model);
                 var data = JSON.stringify(model);
-                res.render('pages/supporter_home',{data:data});
+                res.render('pages/s_dashboard',{data:data});
             });
 
 
