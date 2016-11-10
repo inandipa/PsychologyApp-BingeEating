@@ -108,7 +108,7 @@ add.post('/user', function (req, res,next) {
 
     verify_token.verify(req.session.token,function(err, decoded) {
 
-        if(!err && decoded.tag == 'admin'){
+        if(!err &&( decoded.tag == 'admin' || decoded.tag == 'supporter')){
 
             console.log(req.body);
 
@@ -127,6 +127,9 @@ add.post('/user', function (req, res,next) {
                         console.log(user);
                     });
                     delete data.password;
+                    if(decoded.tag == 'supporter'){
+                        data.supporter = decoded.user;
+                    }
                     mysql.putUser(data,function(user){
                         console.log(user);
                     });
