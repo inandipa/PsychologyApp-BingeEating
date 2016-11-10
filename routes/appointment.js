@@ -34,10 +34,16 @@ appointment.post('/', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
-            console.log(req.body);
+
             supporter = decoded.user;
-            var data  = req.body;
-            mysql.getAppointment(data , function (model) {
+            var data  = {
+                Time : req.body.date + " " + req.body.time,
+                supporter : "nik@uncc.edu",
+                username : "indra"
+            };
+
+            console.log(data);
+            mysql.putAppointment(data , function (model) {
                 if(model != null){
                     res.redirect('/supporter/home');
                 }else{

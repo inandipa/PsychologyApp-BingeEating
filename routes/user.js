@@ -51,6 +51,24 @@ questions.get('/WeeklyQuestions', function (req, res,next) {
 
 });
 
+questions.get('/Appointments', function (req, res,next) {
+   verify_token.verify(req.query.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'user') {
+            user = decoded.user;
+            mysql.getAppointment( user,  function(model) {
+                console.log(model);
+                res.json({statusCode: 200, message : "Appointments", data: model});
+            });
+        }
+        else{
+            console.log(err);
+            res.json({statusCode: 200, message : " invalid user ", data: null});
+        }
+    });
+
+});
+
 questions.post('/DailyLog', function (req, res,next) {
     console.log('Daily Response');
 
