@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -20,14 +19,15 @@
 
     <script>
         var data = <%-data%>;
+
         var app = angular.module('myApp', []);
         app.controller('userCtrl', function($scope) {
-            $scope.myData = data;
-            console.log("I am here " + $scope.myData[0]);
+
+            $scope.user = data;
 
             $scope.removeRow = function (username) {
                 var index = -1;
-                var comArr = eval($scope.myData);
+                var comArr = eval($scope.user);
                 for (var i = 0; i < comArr.length; i++) {
                     if (comArr[i].username === username) {
                         index = i;
@@ -37,17 +37,25 @@
                 if (index === -1) {
                     alert("Something gone wrong");
                 }
-                $scope.companies.splice(index, 1);
+                $scope.user.splice(index, 1);
             };
         });
     </script>
 
 </head>
+
 <style>
     body {
         font: 400 15px Lato, sans-serif;
         line-height: 1.8;
         color: #818181;
+    }
+    h1{
+        font-size: 30px;
+        text-transform: uppercase;
+        color: #006600;
+        font-weight: 600;
+        margin-bottom: 30px;
     }
     h2 {
         font-size: 24px;
@@ -110,10 +118,6 @@
     }
 </style>
 
-
-
-
-
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -135,12 +139,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="main">
-            <h1>Dashboard</h1>
+            <h1 class="text-lg-center">Dashboard</h1>
 
             <div class="row placeholders">
                 <div class="col-xs-6 col-sm-6 placeholder">
                     <a href="/add/user">
-                        <img src="/patient.png" width="600" height="600" class="img-fluid" alt="Add Patient">
+                        <img src="/patient.png" width="310" height="310" class="img-fluid" alt="Add Patient">
                     </a>
                     <span class="text-muted"><h4>Add Patient</h4></span>
                 </div>
@@ -166,12 +170,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="x in myData">
+                        <tr ng-repeat="x in user">
                             <td><a ng-href="/progress?username={{ x.username}}">{{ x.username }}</td>
                             <td>{{ x.supporter }}</td>
                             <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a>
                             <td>{{ x.notification }}</td>
-                            <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow({{x.username}})"/></td>
+                            <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow( x.username )"/></td>
                         </tr>
                         </tbody>
                     </table>
