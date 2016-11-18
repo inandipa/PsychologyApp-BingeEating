@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Binge</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,9 @@
         app.controller('userCtrl', function($scope) {
 
             $scope.user = data;
+            $scope.sortName = 'username'; //default sort type - name
+            $scope.sortReserve = false; //default sort order
+            $scope.searchRecord = ""; //default search term
 
             $scope.removeRow = function (username) {
                 var index = -1;
@@ -55,20 +58,6 @@
         text-transform: uppercase;
         color: #006600;
         font-weight: 600;
-        margin-bottom: 30px;
-    }
-    h2 {
-        font-size: 24px;
-        text-transform: uppercase;
-        color: #303030;
-        font-weight: 600;
-        margin-bottom: 30px;
-    }
-    h4 {
-        font-size: 19px;
-        line-height: 1.375em;
-        color: #303030;
-        font-weight: 400;
         margin-bottom: 30px;
     }
     .navbar {
@@ -122,10 +111,10 @@
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <button type="button" class="navbar-toggler hidden-sm-up" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation"></button>
-    <a class="navbar-brand" href="#">BINGE WebApp</a>
+    <a class="navbar-brand" href="/supporter/home">BINGE WebApp</a>
     <div id="navbar">
         <nav class="nav navbar-nav float-xs-left">
-            <a class="nav-item nav-link" href="/pages/admin_dashboard">Dashboard</a>
+            <a class="nav-item nav-link" href="/supporter/home">Dashboard</a>
             <a class="nav-item nav-link" href="#">Profile</a>
             <a class="nav-item nav-link" href="#">Contact</a>
             <a class="nav-item nav-link" href="/logout">Logout</a>
@@ -133,6 +122,13 @@
         <form class="float-xs-right">
             <input type="text" class="form-control" placeholder="Search...">
         </form>
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <img src="/UNCC_Logo.png" width="200" height="200" class="img-fluid" align="middle" alt="Add Patient">
+        </div>
+        <div class="col-sm-4"></div>
     </div>
 </nav>
 
@@ -159,21 +155,49 @@
                 <h2>Patient Table</h2>
 
                 <div class="table-responsive" ng-app="myApp" ng-controller="userCtrl">
+
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                                <input type="text" class="form-control" placeholder="Search Record" ng-model="searchRecord">
+                            </div>
+                        </div>
+                    </form>
+
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>User Name</th>
-                            <th>Supporter</th>
-                            <th>Appointment</th>
-                            <th>Notification</th>
-                            <th>Action</th>
+                            <th>
+                                <a href="#" ng-click="sortType = 'username'; sortReverse = !sortReverse">
+                                    User Name
+                                    <span ng-show="sortType == 'username' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                    <span ng-show="sortType == 'username' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sortType = 'supporter'; sortReverse = !sortReverse">
+                                    Supporter
+                                    <span ng-show="sortType == 'supporter' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                    <span ng-show="sortType == 'supporter' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                </a>
+                            </th>
+                            <th><a href="#">Appointment</a></th>
+                            <th>
+                                <a href="#" ng-click="sortType = 'notification'; sortReverse = !sortReverse">
+                                    Notification
+                                    <span ng-show="sortType == 'notification' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                                    <span ng-show="sortType == 'notification' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                                </a>
+                            </th>
+                            <th><a href="#">Action</a></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="x in user">
-                            <td><a ng-href="/progress?username={{ x.username}}">{{ x.username }}</td>
+                        <tr ng-repeat="x in user | orderBy:sortType:sortReverse | filter:searchRecord">
+                            <td><a ng-href="/progress?username={{ x.username}}">{{ x.username }}</a></td>
                             <td>{{ x.supporter }}</td>
-                            <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a>
+                            <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a></td>
                             <td>{{ x.notification }}</td>
                             <td><input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow( x.username )"/></td>
                         </tr>
