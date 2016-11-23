@@ -12,6 +12,7 @@ admin.get('/home', function (req, res,next) {
 
         if(!err && decoded.tag == 'admin'){
             console.log(decoded.user);
+            console.log(decoded.supporter);
             user = decoded.user;
             res.render('pages/admin_dashboard');
         }else{

@@ -29,6 +29,24 @@ appointment.get('/', function (req, res,next) {
     });
 });
 
+appointment.get('/list', function (req, res,next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
+            res.render('pages/app_list',{data : req.query.username});
+        }
+        else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
 appointment.post('/', function (req, res,next) {
 
     verify_token.verify(req.session.token,function(err, decoded) {
