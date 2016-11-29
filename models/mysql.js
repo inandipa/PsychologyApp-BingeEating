@@ -133,7 +133,7 @@ module.exports.getUserWeeklyLog = function(user,callback){
 module.exports.putAppointment = function(data,callback){
     new Appointment(data).save().then(callback);
 }
-module.exports.getAppointment = function(user,callback){
+module.exports.getAppointmentForSupporter = function(user,callback){
     new Appointment().where({username : user}).fetchAll().then(callback);
 }
 
