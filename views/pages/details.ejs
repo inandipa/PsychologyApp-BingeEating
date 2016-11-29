@@ -126,14 +126,17 @@
             <input type="text" class="form-control" placeholder="Search...">
         </form>
     </div>
+</nav>
+
+<div class="jumbotron text-center">
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <img src="/UNCC_Logo.png" width="200" height="200" class="img-fluid" align="middle" alt="Add Patient">
+            <img src="/UNCC_Logo.png" style="PADDING-BOTTOM: 15px" width="350" height="350" class="img-fluid" align="middle" alt="Add Patient">
         </div>
         <div class="col-sm-4"></div>
     </div>
-</nav>
+</div>
 
 <div class="container-fluid">
     <div class="row">
@@ -204,7 +207,7 @@
                             <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a></td>
                             <td>{{ x.notification }}</td>
                             <td>
-
+                                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(x.username)"/>
                             </td>
                         </tr>
                         </tbody>

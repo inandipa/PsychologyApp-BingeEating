@@ -1,9 +1,3 @@
-/*
- ----------------------------------------------------------------
- Author: Pawan Araballi
- ----------------------------------------------------------------
- */
-
 var express = require('express');
 console.log('questions.js');
 var appointment = express.Router();

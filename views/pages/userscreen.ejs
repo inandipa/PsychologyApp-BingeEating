@@ -9,18 +9,103 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts-3d.js"></script>
 </head>
 
 <script>
     var wdata = <%-data.WeelyLog%>;
     var ddata = <%-data.DailyLog%>;
     var app = angular.module('myApp', []);
+    var i = 0;
+    var bingeData = [12];
+    var gdData = [12];
+    for(var j = 0; j<12; j++) {
+        bingeData[j] = null;
+        gdData[j] = null;
+    }
     app.controller('userCtrl', function($scope) {
         $scope.weekData = wdata;
         $scope.dailyData = ddata;
         $scope.username = wdata[0].username;
+        angular.forEach(wdata,function(eachValue){
+            bingeData[eachValue.Week] = eachValue.Binges;
+            gdData[eachValue.Week] = eachValue.GoodDays;
+        });
+        console.log(bingeData);
+        Highcharts.chart('container', {
+            chart: {
+                type: 'areaspline'
+            },
+            xAxis: {
+                categories: ['week-1','week-2','week-3','week-4','week-5','week-6','week-7','week-8',
+                                'week-9','week-10','week-11','week-12']
+            },
+
+            series: [
+                {
+                    name: 'Good Days',
+//                    data: gdData
+                    data: [1,3,4,3,2,6,5,6,7,8,9,1]
+                },
+                {
+                    name: 'Binges',
+//                    data: bingeData
+                    data: [3,2,5,6,8,3,1,6,3,9,4,3]
+                }
+            ]
+        });
     });
+
+    var dailyApp = angular.module('dailyApp',[]);
+
+    dailyApp.directive('hcPieChart', function () {
+            return {
+                restrict: 'E',
+                template: '<div></div>',
+                scope: {
+                    title: '@',
+                    data: '='
+                },
+                link: function (scope, element) {
+                    Highcharts.chart(element[0], {
+                        chart: {
+                            type: 'pie',
+                            options3d: {
+                                enabled: true,
+                                alpha: 45
+                            }
+                        },
+                        title: {
+                            text: scope.title
+                        },
+                        plotOptions: {
+                            pie: {
+                                center: ['50%', '50%']
+                            }
+                        },
+                        series: [{
+                            innerSize: 100,
+                            depth: 50,
+                            name: 'Value',
+                            data: scope.data
+                        }]
+                    });
+                }
+            };
+        })
+    dailyApp.controller('dailyController', function ($scope) {
+
+            // Sample data for pie chart
+            $scope.pieData = [
+                ['Binges', 5],
+                ['Kiwi', 3],
+                ['Mixed nuts', 1],
+                ['Oranges', 6]
+            ]
+        });
 </script>
+<script>var rootApp = angular.module('rootApp', ['dailyApp','myApp'])</script>
 
 <style>
     .navbar {
@@ -67,7 +152,7 @@
     }
 </style>
 
-<body>
+<body ng-app="rootApp">
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -96,8 +181,12 @@
     <p>Daily and Weekly Progress</p>
 </div>
 
+
+
 <div class="container">
     <h2 class="text-center">User Progress</h2>
+
+    <div class="container" id="container">place for chart</div>
 
     <div class="table-responsive" ng-app="myApp" ng-controller="userCtrl">
         <h4>Weekly Log</h4>
@@ -125,6 +214,13 @@
         </table>
 
         <h4>Daily Log</h4>
+        <div class="container" ng-app="dailyApp" ng-controller="dailyController">
+
+            <div class="col-sm-4">
+            <hc-pie-chart data="pieData">Placeholder for pie chart</hc-pie-chart>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
         <table class="table table-striped">
             <thead>
             <font size = "8">
@@ -157,7 +253,6 @@
     </div>
 
 </div>
-
 
 </body>
 </html>
