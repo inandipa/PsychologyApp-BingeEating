@@ -34,16 +34,19 @@
             $scope.removeRow = function (username) {
                 var index = -1;
                 var comArr = eval($scope.user);
-                for (var i = 0; i < comArr.length; i++) {
-                    if (comArr[i].username === username) {
-                        index = i;
-                        break;
+                if(confirm("Deleting Patient, Are You Sure?")) {
+                    for (var i = 0; i < comArr.length; i++) {
+                        if (comArr[i].username === username) {
+                            index = i;
+                            break;
+                        }
                     }
+
+                    if (index === -1) {
+                        alert("Something gone wrong");
+                    }
+                    $scope.user.splice(index, 1);
                 }
-                if (index === -1) {
-                    alert("Something gone wrong");
-                }
-                $scope.user.splice(index, 1);
             };
         });
     </script>
@@ -119,24 +122,16 @@
         <nav class="nav navbar-nav float-xs-left">
             <a class="nav-item nav-link" href="/supporter/home">Dashboard</a>
             <a class="nav-item nav-link" href="#">Profile</a>
-            <a class="nav-item nav-link" href="#">Contact</a>
+            <a class="nav-item nav-link" href="/supporter/appointments">Contact</a>
             <a class="nav-item nav-link" href="/logout">Logout</a>
         </nav>
-        <form class="float-xs-right">
-            <input type="text" class="form-control" placeholder="Search...">
-        </form>
+        <div class="float-xs-right">
+            <img src="/UNCC_Logo.png" style="PADDING-BOTTOM: 10px" width="100" height="100" class="img-fluid" align="middle" alt="Add Patient">
+        </div>
     </div>
 </nav>
 
-<div class="jumbotron text-center">
-    <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-            <img src="/UNCC_Logo.png" style="PADDING-BOTTOM: 15px" width="350" height="350" class="img-fluid" align="middle" alt="Add Patient">
-        </div>
-        <div class="col-sm-4"></div>
-    </div>
-</div>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -151,7 +146,7 @@
                     <span class="text-muted"><h4>Add Patient</h4></span>
                 </div>
                 <div class="col-xs-6 col-sm-6 placeholder">
-                    <a href="/appointment/list">
+                    <a href="/supporter/appointments">
                         <img src="/appointment.png" width="310" height="310" class="img-fluid" alt="Appointments">
                     </a>
                     <span class="text-muted"><h4>Appointments</h4></span>
@@ -202,12 +197,13 @@
                         </thead>
                         <tbody>
                         <tr class="text-sm-center" ng-repeat="x in user | orderBy:sortType:sortReverse | filter:searchRecord">
-                            <td><a ng-href="/progress?username={{ x.username}}">{{ x.username }}</a></td>
+                            <td><a ng-href="/supporter/progress?username={{ x.username}}">{{ x.username }}</a></td>
                             <td>{{ x.supporter }}</td>
-                            <td><a ng-href="/appointment?username={{ x.username}}">Schedule Appointment</a></td>
+                            <td><a ng-href="/supporter/CreateAppointments?username={{ x.username}}">Schedule Appointment</a></td>
                             <td>{{ x.notification }}</td>
                             <td>
-                                <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(x.username)"/>
+                                <input type="button" value="Remove" class="btn btn-primary"
+                                       ng-click="removeRow(x.username)"/>
                             </td>
                         </tr>
                         </tbody>

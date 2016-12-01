@@ -58,7 +58,7 @@ supporter.get('/progress', function (req, res,next) {
                             if(model != null){
                                 console.log( JSON.stringify(model));
                                 var UserDetails = JSON.stringify(model);
-                                res.render('pages/userscreen',{data:{WeelyLog: WeeklyLog , DailyActivities :DailyActivities,DailyLog:DailyLog,UserDetails:UserDetails }})
+                                res.render('pages/userscreen',{data:{WeeklyLog: WeeklyLog , DailyActivities :DailyActivities,DailyLog:DailyLog,UserDetails:UserDetails }})
                             }
                         });
                     });
@@ -80,13 +80,32 @@ supporter.get('/appointments', function (req, res,next) {
 
         console.log(decoded);
         if(!err && decoded.tag == 'supporter'){
-            console.log(decoded.user);
+            console.log('user = ' + decoded.user);
             user = decoded.user;
             mysql.getAppointmentForSupporter(user,function (model) {
                 console.log(model);
                 var data = JSON.stringify(model);
-                res.render('pages/details',{data:data});
+                console.log('data = ' + data);
+                res.render('pages/app_list',{data:data});
             });
+        }else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
+supporter.get('/removeEvent', function (req, res,next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
+            console.log('user = ' + decoded.user);
+            user = decoded.user;
         }else{
             console.log(err);
             user = null ;
@@ -103,7 +122,7 @@ supporter.get('/CreateAppointments', function (req, res,next) {
 
         console.log(decoded);
         if(!err && decoded.tag == 'supporter'){
-            res.render('pages/appointments',{data : {user: req.query.username}});
+            res.render('pages/app_list',{data : {user: req.query.username}});
         }
         else{
             console.log(err);
