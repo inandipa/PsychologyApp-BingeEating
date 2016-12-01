@@ -30,6 +30,9 @@ var DailyPhysicalActivity = bookshelf.Model.extend({
 var WeeklySummarySheet = bookshelf.Model.extend({
     tableName: 'WeeklySummarySheet'
 });
+var Steps = bookshelf.Model.extend({
+	tableName: 'CheckList'
+});
 
 var Admin = bookshelf.Model.extend({
   tableName: 'Admin'
@@ -134,9 +137,20 @@ module.exports.putAppointment = function(data,callback){
     new Appointment(data).save().then(callback);
 }
 module.exports.getAppointmentForSupporter = function(user,callback){
-    new Appointment().where({username : user}).fetchAll().then(callback);
+    new Appointment().where({supporter : user}).fetchAll().then(callback);
 }
+
+module.exports.removeAppointment = function(time,callback){
+	console.log(time.Time);
+	new Appointment().where({Time : time.Time}).delete().then(callback)
+
+}
+
 
 module.exports.getAllAppointment = function(user,callback){
     new Appointment().fetchAll().then(callback);
+}
+
+module.exports.getSteps = function(callback){
+	new Steps().fetchAll().then(callback);
 }
