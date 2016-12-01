@@ -30,7 +30,9 @@ var WeeklySummarySheet = bookshelf.Model.extend({
     tableName: 'WeeklySummarySheet'
 });
 var Steps = bookshelf.Model.extend({
+
     tableName: 'CheckList'
+
 });
 
 var Admin = bookshelf.Model.extend({
@@ -142,7 +144,6 @@ module.exports.getAppointmentForSupporter = function(user,callback){
 module.exports.removeAppointment = function(time,callback){
     console.log(time.Time);
     new Appointment().where({Time : time.Time}).destroy().then(callback)
-
 }
 
 
@@ -152,4 +153,5 @@ module.exports.getAllAppointment = function(user,callback){
 
 module.exports.getSteps = function(callback){
     new Steps().fetchAll().then(callback);
+
 }

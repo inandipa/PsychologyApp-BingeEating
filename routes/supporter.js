@@ -88,11 +88,32 @@ supporter.get('/appointments', function (req, res,next) {
                 var data = JSON.stringify(model);
                 console.log(data);
                 user = null;
+<<<<<<< HEAD
                 if(req.query.username) {
                      user = req.query.username;
                      console.log("user = " + user);
                 }
                 res.render('pages/app_list',{data : {user: user, supporter: data  }});
+=======
+                if(req.query.username)
+                user = req.query.username;
+                res.render('pages/appointments',{data : {user: user, supporter: data  }});
+
+
+            });
+            }
+        else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
+supporter.get('/removeEvent', function (req, res,next) {
+>>>>>>> bbe2f2c0c16111960540f09788293fb582796284
 
 
             });
@@ -113,7 +134,11 @@ supporter.get('/CreateAppointments', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
+<<<<<<< HEAD
             // req.query.Time.setHours(req.query.Time.getHours()-5);
+=======
+
+>>>>>>> bbe2f2c0c16111960540f09788293fb582796284
             supporter = decoded.user;
             var data  = {
                 Time : req.query.Time,
