@@ -93,13 +93,7 @@ supporter.get('/appointments', function (req, res,next) {
                 user = req.query.username;
                 res.render('pages/appointments',{data : {user: user, supporter: data  }});
 
-            console.log('user = ' + decoded.user);
-            user = decoded.user;
-            mysql.getAppointmentForSupporter(user,function (model) {
-                console.log(model);
-                var data = JSON.stringify(model);
-                console.log('data = ' + data);
-                res.render('pages/app_list',{data:data});
+
             });
             }
         else{
@@ -150,9 +144,7 @@ supporter.get('/CreateAppointments', function (req, res,next) {
                 }else{
                     res.render('pages/appointments');
                 }
-            })
-        }else{
-            res.render('pages/app_list',{data : {user: req.query.username}});
+            });
         }
         else{
             console.log(err);
