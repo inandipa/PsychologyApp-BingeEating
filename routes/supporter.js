@@ -112,6 +112,7 @@ supporter.get('/CreateAppointments', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
+
             supporter = decoded.user;
             var data  = {
                 Time : req.query.Time,
@@ -143,7 +144,7 @@ supporter.get('/removeAppointment', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
-
+            console.log(req.query.Time);
             supporter = decoded.user;
             console.log("time =" + req.query.Time);
             var data  = {
