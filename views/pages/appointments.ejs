@@ -55,6 +55,7 @@
 </style>
 
 <script>
+    var name = <%-data.user%>;
     var app = angular.module('myApp', []);
     app.controller('aptCtrl', function($scope, $http) {
         $http.get("suppoters.json").then(function (response) {
@@ -101,7 +102,7 @@
     <form action="/appointment" method="post" class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-4">
-                <input class="form-control" name="username" type="hidden" value=<%-data%>>
+                <input class="form-control" name="username" type="hidden" value=<%-data.user%>>
             </div>
             <label class="col-sm-4 control-label"></label>
         </div>
