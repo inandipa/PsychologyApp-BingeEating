@@ -129,6 +129,10 @@ supporter.get('/CreateAppointments', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
+            
+
+            req.query.Time.setHours(req.query.Time.getHours()-5);
+            console.log(req.query.Time)
 
             supporter = decoded.user;
             var data  = {
@@ -161,7 +165,7 @@ supporter.get('/removeAppointment', function (req, res,next) {
     verify_token.verify(req.session.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'supporter'){
-
+            console.log(req.query.Time);
             supporter = decoded.user;
             var data  = {
                 Time : req.query.Time,
@@ -169,7 +173,7 @@ supporter.get('/removeAppointment', function (req, res,next) {
             };
 
             console.log(data);
-            mysql.putAppointment(data , function (model) {
+            mysql.removeAppointment(data , function (model) {
                 if(model != null){
                     res.redirect('/supporter/home');
                 }else{

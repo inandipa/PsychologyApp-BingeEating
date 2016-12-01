@@ -142,7 +142,7 @@ module.exports.getAppointmentForSupporter = function(user,callback){
 
 module.exports.removeAppointment = function(time,callback){
 	console.log(time.Time);
-	new Appointment().where({Time : time.Time}).delete().then(callback)
+	new Appointment().where({Time : time.Time}).destroy().then(callback)
 
 }
 
