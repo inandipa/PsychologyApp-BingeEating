@@ -85,7 +85,7 @@
                     eventData = {
                         title: '<%-data.user%>',
                         start: start,
-                        end: start + 1,
+                        end: end
                     };
                     var date = new Date(eventData.start)
                     date.setHours(date.getHours() - 5);
@@ -99,12 +99,13 @@
                 element.find(".fc-bg").css("pointer-events", "none");
                 element.append("<div id= 'btnDeleteEvent' class='fa fa-times' style='position: absolute; bottom:0px;right:0px'></div>");
                 element.find("#btnDeleteEvent").click(function () {
-                    var date = new Date(event.start)
-                    date.setHours(date.getHours() - 5);
-                    var stDate = date.toISOString();
-                    alert(stDate);
-                    window.location = '/supporter/removeAppointment?Time=' + stDate;
-                    $('#calendar').fullCalendar('removeEvents', event._id);
+                    if(confirm("Deleting Appointment with" + event.title + "!!")) {
+                        var date = new Date(event.start)
+                        date.setHours(date.getHours() - 5);
+                        var stDate = date.toISOString();
+                        window.location = '/supporter/removeAppointment?Time=' + stDate;
+                        $('#calendar').fullCalendar('removeEvents', event._id);
+                    }
                 })
             },
             editable: true,

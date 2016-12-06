@@ -123,9 +123,9 @@ supporter.get('/CreateAppointments', function (req, res,next) {
             console.log(data);
             mysql.putAppointment(data , function (model) {
                 if(model != null){
-                    res.redirect('/supporter/home');
+                    res.redirect('/supporter/appointments');
                 }else{
-                    res.render('pages/appointments');
+                    res.render('pages/app_list');
                 }
             });
         }
@@ -155,9 +155,9 @@ supporter.get('/removeAppointment', function (req, res,next) {
             console.log(data);
             mysql.removeAppointment(data , function (model) {
                 if(model != null){
-                    res.redirect('/supporter/home');
+                    //res.redirect('/supporter/home');
                 }else{
-                    res.render('pages/appointments');
+                    res.render('pages/app_list');
                 }
             })
         }else{
