@@ -1,11 +1,12 @@
 
 
 var express = require('express');
-var questions = express.Router();
+var user = express.Router();
 var mysql = require('../models/mysql');
 var verify_token = require('../models/verify');
+var rn = require('random-number');
 
-questions.get('/DailyQuestions', function (req, res,next) {
+user.get('/DailyQuestions', function (req, res,next) {
 console.log('DailyQuestions');
 
 
@@ -26,7 +27,7 @@ console.log('DailyQuestions');
 
 });
 
-questions.get('/WeeklyQuestions', function (req, res,next) {
+user.get('/WeeklyQuestions', function (req, res,next) {
     console.log('WeeklyQuestions');
 
 
@@ -46,7 +47,7 @@ questions.get('/WeeklyQuestions', function (req, res,next) {
 
 });
 
-questions.get('/Steps', function (req, res,next) {
+user.get('/Steps', function (req, res,next) {
     console.log('Steps');
 
 
@@ -66,12 +67,12 @@ questions.get('/Steps', function (req, res,next) {
 
 });
 
-questions.get('/Appointments', function (req, res,next) {
+user.get('/Appointments', function (req, res,next) {
    verify_token.verify(req.query.token,function(err, decoded) {
 
         if(!err && decoded.tag == 'user') {
             user = decoded.user;
-            mysql.getAppointment( user,  function(model) {
+            mysql.getAppointmentForUser( user,  function(model) {
                 console.log(model);
                 res.json({statusCode: 200, message : "Appointments", data: model});
             });
@@ -84,7 +85,57 @@ questions.get('/Appointments', function (req, res,next) {
 
 });
 
-questions.post('/DailyLog', function (req, res,next) {
+user.get('/AllDailyLogs', function (req, res,next) {
+    console.log('DailyQuestions');
+
+
+    verify_token.verify(req.query.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'user') {
+            user = decoded.user;
+            mysql.getUserDailyLog(user, function(model) {
+                var data = JSON.stringify(model);
+                console.log(data);
+                res.json({statusCode: 200, message : "DailyLog", data: model});
+            });
+        }
+        else{
+            console.log(err);
+            res.json({statusCode: 200, message : " invalid user ", data: null});
+        }
+    });
+
+
+});
+
+user.get('/game', function (req, res,next) {
+    console.log('game');
+
+
+    verify_token.verify(req.query.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'user') {
+            user = decoded.user;
+
+            mysql.getAllImageData(function (model) {
+                console.log(model);
+
+            })
+
+
+
+        }
+        else{
+            console.log(err);
+            res.json({statusCode: 200, message : " invalid user ", data: null});
+        }
+    });
+
+
+});
+
+
+user.post('/DailyLog', function (req, res,next) {
     console.log('Daily Response');
 
 
@@ -94,11 +145,28 @@ questions.post('/DailyLog', function (req, res,next) {
         if (!err && decoded.tag == 'user') {
             var data = req.body;
             data.username = decoded.user;
+            var ImageData = {};
+            var array =  [];
+            ImageData.user = decoded.user;
+            ImageData.image = data.ImageUrl;
+            ImageData.userResponse = data.FoodAndDrinksConsumed;
+            array.push(data.FoodAndDrinksConsumed);
+            ImageData.responses = JSON.serialize(array);
+
+
             mysql.putUserDailyLog(data,function (model) {
                 if(model == null){
-                    res.json({statusCode : 200 , message:"data not stored"})
+                    res.json({statusCode : 200 , message:"data not stored"});
                 }else{
-                    res.json({statusCode : 200 , message:"data stored"})
+                    mysql.putImageData(ImageData,function (model) {
+                        if(model == null){
+                            res.json({statusCode : 200 , message:"Image data not stored"});
+                        }else{
+                            res.json({statusCode : 200 , message:"Image data stored"});
+                        }
+                    });
+
+                    res.json({statusCode : 200 , message:"data stored"});
                 }
             })
 
@@ -110,7 +178,11 @@ questions.post('/DailyLog', function (req, res,next) {
     });
 });
 
-questions.post('/DailyActivities', function (req, res,next) {
+
+
+
+
+user.post('/DailyActivities', function (req, res,next) {
     console.log('Daily Response');
 
 
@@ -137,7 +209,7 @@ questions.post('/DailyActivities', function (req, res,next) {
 });
 
 
-questions.post('/WeeklyResponse', function (req, res,next) {
+user.post('/WeeklyResponse', function (req, res,next) {
     console.log('Weekly Response');
 
 
@@ -163,4 +235,4 @@ questions.post('/WeeklyResponse', function (req, res,next) {
     });
 });
 
-module.exports = questions;
+module.exports = user;

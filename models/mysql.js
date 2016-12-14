@@ -50,6 +50,9 @@ var Login = bookshelf.Model.extend({
 var Appointment = bookshelf.Model.extend({
     tableName: 'appointment'
 });
+var Image = bookshelf.Model.extend({
+    tableName: 'Images'
+});
 
 module.exports.DailyQuestions = function(callback) {
     new DailyQuestion()
@@ -83,6 +86,10 @@ module.exports.getAdmin = function(user,callback) {
         .then(callback);
 }
 
+module.exports.putImageData = function(data,callback) {
+    new Images(data).save().then(callback);
+}
+
 module.exports.getSupporter = function(user,callback) {
     new Supporter({email: user })
         .fetch()
@@ -113,7 +120,7 @@ module.exports.getAllUsers = function(callback) {
 
 // remove supporter for user
 module.exports.removeUser = function(user, callback) {
-    new User().where({username: user}).save({supporter: ''}, {patch: true}).then(callback);
+    new User().where({username: user}).save({supporter: null}, {patch: true}).then(callback);
 }
 
 module.exports.getUserForSupporter = function(user,callback) {
@@ -152,15 +159,18 @@ module.exports.getAppointmentForSupporter = function(user,callback){
     new Appointment().where({supporter : user}).fetchAll().then(callback);
 }
 
+module.exports.getAppointmentForUser = function(user,callback){
+	new Appointment().where({username : user}).fetchAll().then(callback);
+}
+
 module.exports.removeAppointment = function(time,callback){
 
     console.log(time.Time);
     new Appointment().where({Time : time.Time}).destroy().then(callback)
 }
 
-
-module.exports.getAllAppointment = function(user,callback){
-    new Appointment().fetchAll().then(callback);
+module.exports.getAllImageData = function(callback){
+    new Image().fetchAll().then(callback);
 }
 
 module.exports.getSteps = function(callback){
