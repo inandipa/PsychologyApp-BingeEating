@@ -105,6 +105,17 @@ module.exports.putSupporter = function(user,callback) {
 
 }
 
+module.exports.getAllUsers = function(callback) {
+    new User()
+        .fetchAll()
+        .then(callback);
+}
+
+// remove supporter for user
+module.exports.removeUser = function(user, callback) {
+    new User().where({username: user}).save({supporter: ''}, {patch: true}).then(callback);
+}
+
 module.exports.getUserForSupporter = function(user,callback) {
     new User().where({supporter : user}).fetchAll().then(callback);
 }
