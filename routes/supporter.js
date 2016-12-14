@@ -73,6 +73,32 @@ supporter.get('/progress', function (req, res,next) {
     });
 });
 
+//send notifications
+supporter.get('/sendnotification', function (req, res,next) {
+
+    var user = req.query.username;
+    var message = req.query.message;
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
+
+            supporter = decoded.user;
+            console.log("user: "+user+" ; message: " + message);
+            res.render('supporter/home');
+        }
+        else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
+
 
 
 supporter.get('/appointments', function (req, res,next) {
@@ -139,6 +165,33 @@ supporter.get('/CreateAppointments', function (req, res,next) {
     });
 });
 
+supporter.get('/removeUser', function (req, res, next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'supporter'){
+            console.log(req.query.username);
+            supporter = decoded.user;
+
+            console.log("username: " + req.query.username);
+            mysql.removeUser(req.query.username, function (model) {
+                if(model != null){
+                    //res.end();
+                    res.send('0');
+                }else{
+                    res.render('pages/logout');
+                }
+            })
+        }else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
 supporter.get('/removeAppointment', function (req, res,next) {
 
     verify_token.verify(req.session.token,function(err, decoded) {
@@ -155,7 +208,8 @@ supporter.get('/removeAppointment', function (req, res,next) {
             console.log(data);
             mysql.removeAppointment(data , function (model) {
                 if(model != null){
-                    //res.redirect('/supporter/home');
+                    //res.end();
+                    res.redirect('/supporter/appointments');
                 }else{
                     res.render('pages/app_list');
                 }
