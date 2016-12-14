@@ -50,9 +50,11 @@ var Login = bookshelf.Model.extend({
 var Appointment = bookshelf.Model.extend({
     tableName: 'appointment'
 });
-var Image = bookshelf.Model.extend({
+var Images = bookshelf.Model.extend({
     tableName: 'Images'
 });
+
+
 
 module.exports.DailyQuestions = function(callback) {
     new DailyQuestion()
@@ -89,6 +91,12 @@ module.exports.getAdmin = function(user,callback) {
 module.exports.putImageData = function(data,callback) {
     new Images(data).save().then(callback);
 }
+
+// module.exports.updateImageData = function(image,data,callback) {
+//     new Images().where({image : image}).save({responses: data}, {patch: true}).then(callback);
+// }
+
+
 
 module.exports.getSupporter = function(user,callback) {
     new Supporter({email: user })
@@ -159,7 +167,7 @@ module.exports.removeAppointment = function(time,callback){
 }
 
 module.exports.getAllImageData = function(callback){
-    new Image().fetchAll().then(callback);
+    new Images().fetchAll().then(callback);
 }
 
 module.exports.getSteps = function(callback){
