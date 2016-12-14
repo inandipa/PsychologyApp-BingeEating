@@ -162,25 +162,28 @@ user.get('/game', function (req, res,next) {
                     console.log(keys[Math.floor(Math.random() * keys.length)]);
                     console.log(tagArray[keys[Math.floor(Math.random() * keys.length)]]);
                     var randomnum1 = rn({
-                        min: 2, max: 7, integer: true
+                        min: 2, max: 5, integer: true
                     });
 
                     var selectData = [];
                     var rdn = keys[Math.floor(Math.random() * keys.length)];
-                    for( i in randomnum1) {
+                    console.log(randomnum1);
+                    for( var i =0 ; i<randomnum1 ;i++) {
                         console.log(i + "for");
                         selectData.push(
                             {
-                                rdn: tagArray[rdn][Math.floor(Math.random() * tagArray[rdn].length)]
+                                key: rdn,
+                                value: tagArray[rdn][Math.floor(Math.random() * tagArray[rdn].length)]
                             }
                         );
                     }
-                    for( i in 9-randomnum1){
+                    for( var i =randomnum1 ; i<9 ;i++){
                         console.log(i + "for 9");
                         rdn = keys[Math.floor(Math.random() * keys.length)];
                         selectData.push(
                             {
-                                rdn : tagArray[rdn][Math.floor(Math.random() * tagArray[rdn].length)]
+                                key: rdn,
+                                value: tagArray[rdn][Math.floor(Math.random() * tagArray[rdn].length)]
                             }
                         );
                     }
