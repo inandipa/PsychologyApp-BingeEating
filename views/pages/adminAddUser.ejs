@@ -14,11 +14,8 @@
 <script>
     var data = <%-data%>
     var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-        $http.get("supporters.json").then(function (response) {
-            $scope.myData = response.data.supporter;
-
-        });
+    app.controller('myCtrl', function($scope) {
+        $scope.supporter = data;
     });
 </script>
 
@@ -114,12 +111,21 @@
             <label class="col-sm-4 control-label"></label>
         </div>
         <div class="form-group">
-        <label class="col-sm-4 control-label" for="notification">Notification:</label>
+            <label class="col-sm-4 control-label" for="notification">Notification:</label>
             <div class="col-sm-4">
-            <select class="form-control" name="notifications">
-                <option value="Enabled">Enabled</option>
-                <option value="Disabled">Disabled</option>
-            </select>
+                <select class="form-control" name="notifications">
+                    <option value="Enabled">Enabled</option>
+                    <option value="Disabled">Disabled</option>
+                </select>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="form-group" ng-app="myApp" ng-controller="myCtrl">
+            <label class="col-sm-4 control-label" for="supporter">Supporter:</label>
+            <div class="col-sm-4">
+                <select ng-model="selectedName" name="supporter">
+                    <option ng-repeat="item in supporter" value="{{ item.username }}">{{ item.name }}</option>
+                </select>
             </div>
             <div class="col-sm-4"></div>
         </div>
