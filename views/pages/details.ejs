@@ -273,9 +273,17 @@
                                             <label  class="col-sm-3 control-label"
                                                     for="user">User:</label>
                                             <div class="col-sm-9">
-                                                <select ng-model="selectedName" name="username" ng-selected="cast">
+                                                <select ng-model="selectedName" name="username">
                                                     <option value="">BroadCast</option>
-                                                    <option ng-repeat="item in user" value="{{ item.username }}">{{ item.username }}</option>
+                                                    <!--<div ng-switch="x.notifications" style="color: black">-->
+                                                        <!--<div ng-switch-when="Enabled"><i class="fa fa-bell" aria-hidden="true"></i></div>-->
+                                                        <!--<div ng-switch-default><i class="fa fa-bell-o" aria-hidden="true"></i></div>-->
+                                                    <!--</div>-->
+                                                    <option ng-repeat="item in user" value="{{ item.username }}">
+                                                        <div ng-switch="x.notifications">
+                                                            <div ng-switch-when="Enabled">{{ item.username }}</div>
+                                                        </div>
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>

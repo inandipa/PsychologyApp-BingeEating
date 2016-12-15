@@ -69,14 +69,14 @@ supporter.get('/notification', function (req, res,next) {
                             data.noteData  = JSON.stringify(notdata);
                             console.log(data);
                             mysql.updateUser(data,function (model) {
-                                res.send("sucess");
+                                res.redirect('/supporter/home');
                             });
                         }else{
                             notdata = JSON.parse(data.noteData);
                             notdata.push(req.query.data);
                             data.noteData  = JSON.stringify(notdata);
                             mysql.updateUser(data,function (model) {
-                                res.send("sucess");
+                                res.redirect("/supporter/home");
                             });
                         }
 
@@ -115,7 +115,7 @@ supporter.get('/notification', function (req, res,next) {
                             }
                         }
                     }
-                    res.send("success");
+                    res.redirect("/supporter/home");
                 });
             }
 
