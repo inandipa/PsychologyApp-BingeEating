@@ -163,8 +163,6 @@
     </div>
 </nav>
 
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="main">
@@ -259,7 +257,7 @@
                         <div class="col-sm-3"></div>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- Modal to send/broadcast notifications -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
 
@@ -270,7 +268,7 @@
                                     <h4 class="modal-title">Broadcast Message</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/supporter/sendnotification" class="form-horizontal" role="form">
+                                    <form action="/supporter/notification" class="form-horizontal" role="form" method="GET">
                                         <div class="form-group">
                                             <label  class="col-sm-3 control-label"
                                                     for="user">User:</label>
@@ -286,7 +284,7 @@
                                                     for="msg">Message:</label>
                                             <div class="col-sm-9">
                                                 <input type="text" maxlength="100" class="form-control"
-                                                       id="msg" name="message" placeholder="type the message here"/>
+                                                       id="msg" name="data" placeholder="type the message here"/>
                                             </div>
                                         </div>
                                         <div class="form-group">

@@ -64,6 +64,8 @@ add.post('/supporter', function (req, res,next) {
 
         if(!err  && decoded.tag == 'admin'){
 
+            console.log("enter func");
+
             mysql.getSupporter(req.body.email,function(model){
                 if(model ==  null){
                     var data = req.body;
@@ -110,7 +112,6 @@ add.post('/user', function (req, res,next) {
 
             mysql.getUser(req.body.username,function(model){
                 if(model ==  null){
-                    console.log("no data");
                     var data = req.body;
                     console.log(data);
                     var login_details = {

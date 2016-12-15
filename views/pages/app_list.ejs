@@ -82,16 +82,19 @@
 <script>
 
     var json = <%-data.supporter%>;
+    var userid, uname, ndate;
     json = JSON.parse(JSON.stringify(json).split('"username":').join('"title":'));
     json = JSON.parse(JSON.stringify(json).split('"Time":').join('"start":'));
 
     $(document).ready(function() {
+//        Pre-defining setting for the summernote notes
         $('#summernote').summernote({
             height: 250,                 // set editor height
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
             focus: true                 // set focus to editable area after initializing summernote
         });
+//        Pre-defining setting for the Fullcalendar events
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -103,23 +106,27 @@
             navLinks: true, // can click day/week names to navigate views
             selectable: true,
             selectHelper: true,
+            defaultTimedEventDuration: '01:00:00', //default time is changed to 1 hour
+//            Selecting a slot in the calendar for a specific user
             select: function(start, end) {
                 var title = '<%-data.user%>';
+                var strt = start;
                 var eventData;
                 if (title) {
                     eventData = {
                         title: '<%-data.user%>',
                         start: start,
-                        end: end
+                        id: title + strt
                     };
                     var date = new Date(eventData.start)
                     date.setHours(date.getHours() - 5);
                     var stDate = date.toISOString();
-                    window.location = '/supporter/CreateAppointments?username=' + eventData.title + "&Time=" + stDate;
+                    window.location = '/supporter/CreateAppointments?username=' + eventData.title + "&Time=" + stDate + "&id=" +eventData.id;
                     $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
                 }
                 $('#calendar').fullCalendar('unselect');
             },
+//            Remove button for the calendar event is included here
             eventRender: function(event, element) {
                 var flag = 0;
                 element.find(".fc-bg").css("pointer-events", "none");
@@ -135,7 +142,13 @@
                         $('#calendar').fullCalendar('removeEvents', event._id);
                     }
                 })
+//                clicking on a calendar event will open up a modal which let you add notes
                 element.click(function () {
+                    userid = event.id;
+                    uname = event.title
+                    var date = new Date(event.start)
+                    date.setHours(date.getHours() - 5);
+                    ndate = date.toISOString();
                     if(flag == 0) {
                         $('#modalTitle').html('<p>Note for <strong>' + event.title + '</strong></p>');
                         $('#eventUrl').attr('href', event.url);
@@ -145,15 +158,22 @@
                     }
                 })
             },
+//            Event drag and drop is supported here
             eventDrop: function(event, delta, revertFunc) {
 
-                alert(event.title + " was dropped on " + event.start.format());
 
                 if (!confirm("Are you sure about this change?")) {
                     revertFunc();
+                } else {
+                    console.log("entered --");
+                    var date = new Date(event.start)
+                    date.setHours(date.getHours() - 5);
+                    var stDate = date.toISOString();
+                    window.location = '/supporter/updateAppointment?id=' + event.id + "&Time=" + stDate;
                 }
 
             },
+//            Event Resizing is not implemented for now
             eventResize: function(event, delta, revertFunc) {
 
                 alert(event.title + " end is now " + event.end.format());
@@ -163,12 +183,23 @@
                 }
 
             },
+            eventDurationEditable: false,
             editable: true,
-            eventLimit: true, // allow "more" link when too many events
+            eventLimit: false, // allow "more" link when too many events
             events: json
         });
 
     });
+
+    function addNote() {
+        var markupStr = $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, "");
+        console.log("mark--" + markupStr);
+        $('#summernote').summernote('reset');
+//        submitting the hidden form to send the note data to database
+        $("#id").val(userid);
+        $("#description").val(markupStr);
+        $("#form").submit();
+    }
 
 </script>
 
@@ -203,6 +234,7 @@
 
 <div class="container" id='calendar'></div>
 
+<!--Modal for writing Notes-->
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -210,6 +242,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                 <h4 id="modalTitle" class="modal-title" style="color: white"></h4>
             </div>
+            <!--Summernote is a framework used here which let us use formatted Text-->
             <div class="modal-body" id="summernote"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -218,13 +251,12 @@
         </div>
     </div>
 </div>
-<script>
-    function addNote() {
-        var markupStr = $('#summernote').summernote('code');
-        $('#summernote').summernote('reset');
-        console.log("Notes: " + markupStr);
-    }
-</script>
+
+<!--Storing the Notes to the database, message send through post request-->
+<form style="display: hidden" action="/supporter/addNote" method="POST" id="form">
+    <input type="hidden" id="id" name="id" value=""/>
+    <input type="hidden" id="description" name="description" value=""/>
+</form>
 
 </body>
 </html>

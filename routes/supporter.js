@@ -38,7 +38,7 @@ supporter.get('/updateStep', function (req, res,next) {
             console.log(decoded.user);
             user = decoded.user;
             mysql.updateStep(req.query.username,req.query.step ,function(model){
-            res.redirect('/progress');
+            res.send('0');
             });
         }else{
             console.log(err);
@@ -207,6 +207,62 @@ supporter.get('/appointments', function (req, res,next) {
     });
 });
 
+supporter.get('/notes', function (req, res,next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
+
+            supporter = decoded.user;
+            mysql.getNotesforUser(req.query.username,function (model) {
+                console.log(model);
+                var data = JSON.stringify(model);
+                console.log(data);
+                res.render('pages/notes',{data : data});
+
+            });
+        }
+        else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
+supporter.post('/addNote', function (req, res, next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'supporter'){
+            console.log(req.body);
+            supporter = decoded.user;
+            var body = req.body;
+            var data  = {
+                id : body.id,
+                description : body.description,
+            };
+
+            mysql.addNote(data, function (model) {
+                if(model != null){
+                    res.redirect('/supporter/appointments');
+                }else{
+                    res.render('pages/logout');
+                }
+            })
+        }else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
 
 supporter.get('/CreateAppointments', function (req, res,next) {
 
@@ -218,11 +274,43 @@ supporter.get('/CreateAppointments', function (req, res,next) {
             var data  = {
                 Time : req.query.Time,
                 supporter : supporter,
-                username : req.query.username
+                username : req.query.username,
+                id : req.query.id
             };
 
             console.log(data);
             mysql.putAppointment(data , function (model) {
+                if(model != null){
+                    res.redirect('appointments?username=' + req.query.username);
+                }else{
+                    res.render('pages/app_list');
+                }
+            });
+        }
+        else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
+
+supporter.get('/updateAppointment', function (req, res,next) {
+
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'supporter'){
+
+            supporter = decoded.user;
+            var data  = {
+                Time : req.query.Time,
+                id : req.query.id
+            };
+
+            console.log(data);
+            mysql.updateAppointment(data , function (model) {
                 if(model != null){
                     res.redirect('/supporter/appointments');
                 }else{
