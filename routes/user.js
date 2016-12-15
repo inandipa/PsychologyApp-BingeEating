@@ -314,8 +314,6 @@ user.post('/DailyLog', function (req, res,next) {
             ImageData.name = data.FoodAndDrinksConsumed;
             ImageData.tag = data.FoodAndDrinksConsumed;
 
-
-
             mysql.putUserDailyLog(data,function (model) {
                 console.log(data);
                 if(model == null){
@@ -331,6 +329,7 @@ user.post('/DailyLog', function (req, res,next) {
 
                 }
             })
+
 
         }
         else {
