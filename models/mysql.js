@@ -201,7 +201,7 @@ module.exports.getSteps = function(callback){
 
 //adding notes
 module.exports.addNote = function(data, callback){
-    new Notes(data).save(null, {method: 'insert'}).then(callback);
+    new Appointment().where({id: data.id}).save({description: data.description}, {patch: true}).then(callback);
 
 }
 

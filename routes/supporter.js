@@ -38,7 +38,7 @@ supporter.get('/updateStep', function (req, res,next) {
             console.log(decoded.user);
             user = decoded.user;
             mysql.updateStep(req.query.username,req.query.step ,function(model){
-            res.redirect('/progress');
+            res.send('0');
             });
         }else{
             console.log(err);
@@ -192,9 +192,8 @@ supporter.post('/addNote', function (req, res, next) {
             supporter = decoded.user;
             var body = req.body;
             var data  = {
-                Date : body.Date,
-                Username : body.Username,
-                Message: body.Message
+                id : body.id,
+                description : body.description,
             };
 
             mysql.addNote(data, function (model) {

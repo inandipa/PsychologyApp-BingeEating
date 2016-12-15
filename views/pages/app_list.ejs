@@ -192,12 +192,12 @@
     });
 
     function addNote() {
-        var markupStr = $('#summernote').summernote('code');
+        var markupStr = $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, "");
+        console.log("mark--" + markupStr);
         $('#summernote').summernote('reset');
 //        submitting the hidden form to send the note data to database
-        $("#Date").val(ndate);
-        $("#Username").val(uname);
-        $("#Message").val(markupStr);
+        $("#id").val(userid);
+        $("#description").val(markupStr);
         $("#form").submit();
     }
 
@@ -254,9 +254,8 @@
 
 <!--Storing the Notes to the database, message send through post request-->
 <form style="display: hidden" action="/supporter/addNote" method="POST" id="form">
-    <input type="hidden" id="Date" name="Date" value=""/>
-    <input type="hidden" id="Username" name="Username" value=""/>
-    <input type="hidden" id="Message" name="Message" value=""/>
+    <input type="hidden" id="id" name="id" value=""/>
+    <input type="hidden" id="description" name="description" value=""/>
 </form>
 
 </body>
