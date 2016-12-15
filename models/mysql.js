@@ -48,13 +48,14 @@ var Login = bookshelf.Model.extend({
 var Appointment = bookshelf.Model.extend({
     tableName: 'appointment'
 });
-var Image = bookshelf.Model.extend({
+var Images = bookshelf.Model.extend({
     tableName: 'Images'
 });
 
 var Notes = bookshelf.Model.extend({
     tableName: 'Notes'
 });
+
 
 module.exports.DailyQuestions = function(callback) {
     new DailyQuestion()
@@ -92,6 +93,12 @@ module.exports.putImageData = function(data,callback) {
     new Images(data).save().then(callback);
 }
 
+// module.exports.updateImageData = function(image,data,callback) {
+//     new Images().where({image : image}).save({responses: data}, {patch: true}).then(callback);
+// }
+
+
+
 module.exports.getSupporter = function(user,callback) {
     new Supporter({email: user })
         .fetch()
@@ -123,6 +130,10 @@ module.exports.getAllUsers = function(callback) {
 // remove supporter for user
 module.exports.removeUser = function(user, callback) {
     new User().where({username: user}).save({supporter: null}, {patch: true}).then(callback);
+}
+
+module.exports.updateStep = function(user,step, callback) {
+    new User().where({username: user}).save({step: step}, {patch: true}).then(callback);
 }
 
 module.exports.getUserForSupporter = function(user,callback) {
@@ -180,7 +191,7 @@ module.exports.removeAppointment = function(time,callback){
 }
 
 module.exports.getAllImageData = function(callback){
-    new Image().fetchAll().then(callback);
+    new Images().fetchAll().then(callback);
 }
 
 module.exports.getSteps = function(callback){

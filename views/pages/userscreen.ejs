@@ -19,6 +19,7 @@
 <script>
     var dData = <%-data.DailyLog%>;
     var wData = <%-data.WeeklyLog%>;
+    var uData = <%-data.UserDetails%>;
     var i = 0;
     var bingeData = [12];
     var gdData = [12];
@@ -74,6 +75,7 @@
 
     dailyApp.controller('dailyCtrl', function ($scope) {
         $scope.dailyData = dData;
+        $scope.step = stepNum;
         $scope.pieData = [
             ['Binges', 5],
             ['Kiwi', 3],
@@ -170,7 +172,7 @@
         };
     });
 
-    PageApp.controller('angularPageAppCtrl', function($scope) {
+    PageApp.controller('angularPageAppCtrl', function($scope,$http) {
 
         $scope.steps = [
             { id: 1, text: 'Step 1' },
@@ -182,11 +184,15 @@
             { id: 7, text: 'Step 7' },
             { id: 8, text: 'Step 8' }
         ];
-        $scope.activeStep = 1;
+        $scope.activeStep = uData.step;
 
         $scope.goToStep = function(newStepId) {
             $scope.activeStep = newStepId;
             console.log('new active step: ' + $scope.activeStep);
+            $http.get('/supporter/updateStep', { params: {step: $scope.activeStep, username: uData.username} })
+                .then (function (response) {
+                    console.log("success");
+                });
         };
 
         $scope.goToPrevious = function() {
