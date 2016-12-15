@@ -131,6 +131,10 @@ module.exports.removeUser = function(user, callback) {
     new User().where({username: user}).save({supporter: null}, {patch: true}).then(callback);
 }
 
+module.exports.updateStep = function(user,step, callback) {
+    new User().where({username: user}).save({step: step}, {patch: true}).then(callback);
+}
+
 module.exports.getUserForSupporter = function(user,callback) {
     new User().where({supporter : user}).fetchAll().then(callback);
 }
