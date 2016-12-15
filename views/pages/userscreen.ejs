@@ -495,7 +495,7 @@
             <tbody>
             <tr ng-repeat="x in weeklyData">
                 <td>{{ x.Week }}</td>
-                <td>{{ x.Binges }}</a>
+                <td>{{ x.Binges }}</td>
                 <td>{{ x.V/L/D }}</td>
                 <td>{{ x.GoodDays }}</td>
                 <td>{{ x.Weight }}</td>
@@ -508,9 +508,9 @@
 
         <h4>Daily Log</h4>
         <div ng-app = "dailyApp" ng-controller = "dailyCtrl">
-            <div class="col-sm-4">
-                <hc-pie-chart data="pieData">Placeholder for pie chart</hc-pie-chart>
-            </div>
+            <!--<div class="col-sm-4">-->
+                <!--<hc-pie-chart data="pieData">Placeholder for pie chart</hc-pie-chart>-->
+            <!--</div>-->
             <div class="col-sm-4"></div>
             <table class="table table-striped">
             <thead>
@@ -534,14 +534,25 @@
             </tr>
             </tbody>
         </table>
-        </div>
+
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <a href="/appointment?username={{ username }}" type="button" class="btn btn-primary">Schedule Appointment</a>
+                <a href="appointments?username={{ dailyData[0].username }}" type="button" class="btn btn-primary">Schedule Appointment</a>
             </div>
             <div class="col-sm-4"></div>
         </div>
+            <p>&nbsp;</p>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a href="/supporter/Notes?username={{ dailyData[0].username }}" type="button" class="btn btn-primary">Notes</a>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+
+</div>
     </div>
 </body>
 </html>
