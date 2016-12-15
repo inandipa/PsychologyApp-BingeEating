@@ -130,6 +130,32 @@ user.get('/AllDailyLogs', function (req, res,next) {
 
 });
 
+user.get('/notifications', function (req, res,next) {
+    console.log('DailyQuestions');
+
+
+    verify_token.verify(req.query.token,function(err, decoded) {
+
+        if(!err && decoded.tag == 'user') {
+            user = decoded.user;
+            mysql.getUser(user, function(model) {
+                console.log(JSON.parse(JSON.stringify(model)));
+                var data = (JSON.parse(JSON.stringify(model)));
+                data = data.noteData;
+                res.json({statusCode: 200, message : "notifications", data: data});
+            });
+        }
+        else{
+            console.log(err);
+            res.json({statusCode: 200, message : " invalid user ", data: null});
+        }
+    });
+
+
+});
+
+
+
 user.get('/game', function (req, res,next) {
     console.log('game');
     var tagArray = {};

@@ -145,6 +145,11 @@ module.exports.putUser = function(user,callback) {
         .then(callback);
 }
 
+module.exports.updateUser = function(data,callback) {
+    new User().where({username : data.username}).save({noteData : data.noteData}, {patch : true})
+        .then(callback);
+}
+
 module.exports.putUserDailyLog = function(data,callback){
     new DailyLog(data).save().then(callback);
 }

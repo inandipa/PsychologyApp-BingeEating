@@ -64,34 +64,61 @@ supporter.get('/notification', function (req, res,next) {
                     if (model != null) {
                         var data = JSON.parse(JSON.stringify(model));
                         console.log(data);
-                        if(data.notification == null){
+                        if(data.noteData == null){
                             notdata.push(req.query.data);
-                            data.notification  = notdata;
+                            data.noteData  = JSON.stringify(notdata);
+                            console.log(data);
+                            mysql.updateUser(data,function (model) {
+                                res.send("sucess");
+                            });
                         }else{
-                            notdata = data.notification;
+                            notdata = JSON.parse(data.noteData);
                             notdata.push(req.query.data);
+                            data.noteData  = JSON.stringify(notdata);
+                            mysql.updateUser(data,function (model) {
+                                res.send("sucess");
+                            });
                         }
-                        res.json({statusCode: 200, message: " data stored"});
+
                     }
                 });
-            }
-            else{
-                mysql.getUserForSupporter(supporter, function (model) {
-                    if (model != null) {
-                        var data = JSON.parse(JSON.stringify(model));
-                        for (var i in data) {
-                            if (data[i].notification == null) {
-                                notdata.push(req.query.data);
-                                data.notification = notdata;
-                            } else {
-                                notdata = data.notification;
-                                notdata.push(req.query.data);
+            }else{
+                mysql.getUserForSupporter(supporter,function (model) {
+                    var data = JSON.parse(JSON.stringify(model));
+                    console.log(data);
+                    for(var i in data) {
+                        if (data[i].notifications == "Enabled") {
+                             user = data[i].username;
+                            if(user) {
+                                mysql.getUser(user, function (model) {
+                                    if (model != null) {
+                                        var data = JSON.parse(JSON.stringify(model));
+                                        console.log(data);
+                                        if(data.noteData == null){
+                                            notdata.push(req.query.data);
+                                            data.noteData  = JSON.stringify(notdata);
+                                            console.log(data);
+                                            mysql.updateUser(data,function (model) {
+
+                                            });
+                                        }else{
+                                            notdata = JSON.parse(data.noteData);
+                                            notdata.push(req.query.data);
+                                            data.noteData  = JSON.stringify(notdata);
+                                            mysql.updateUser(data,function (model) {
+
+                                            });
+                                        }
+
+                                    }
+                                });
                             }
-                            res.json({statusCode: 200, message: " data stored"});
                         }
                     }
+                    res.send("success");
                 });
             }
+
         }else{
             console.log(err);
             user = null ;
