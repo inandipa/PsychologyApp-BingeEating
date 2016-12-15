@@ -68,6 +68,27 @@ user.get('/Steps', function (req, res,next) {
 
 });
 
+user.get('/currentStep', function (req, res,next) {
+    console.log('current step');
+
+    verify_token.verify(req.query.token,function(err, decoded) {
+        if(!err && decoded.tag == 'user') {
+            var username = decoded.user;
+            mysql.getUser(username,function (model) {
+                if(model != null){
+
+                    res.json({statusCode: 200, message : " updated step", data:model });
+                }
+            });
+        }
+        else{
+            console.log(err);
+            res.json({statusCode: 200, message : " invalid user ", data: null});
+        }
+    });
+
+});
+
 user.get('/Appointments', function (req, res,next) {
    verify_token.verify(req.query.token,function(err, decoded) {
 
