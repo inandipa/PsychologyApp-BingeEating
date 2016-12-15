@@ -50,7 +50,57 @@ supporter.get('/updateStep', function (req, res,next) {
     });
 });
 
+supporter.get('/notification', function (req, res,next) {
 
+    verify_token.verify(req.session.token,function(err, decoded) {
+
+        console.log(decoded);
+        if(!err && decoded.tag == 'supporter'){
+            console.log(decoded.user);
+            supporter = decoded.user;
+            var notdata = [];
+            if(req.query.username) {
+                mysql.getUser(req.query.username, function (model) {
+                    if (model != null) {
+                        var data = JSON.parse(JSON.stringify(model));
+                        console.log(data);
+                        if(data.notification == null){
+                            notdata.push(req.query.data);
+                            data.notification  = notdata;
+                        }else{
+                            notdata = data.notification;
+                            notdata.push(req.query.data);
+                        }
+                        res.json({statusCode: 200, message: " data stored"});
+                    }
+                });
+            }
+            else{
+                mysql.getUserForSupporter(supporter, function (model) {
+                    if (model != null) {
+                        var data = JSON.parse(JSON.stringify(model));
+                        for (var i in data) {
+                            if (data[i].notification == null) {
+                                notdata.push(req.query.data);
+                                data.notification = notdata;
+                            } else {
+                                notdata = data.notification;
+                                notdata.push(req.query.data);
+                            }
+                            res.json({statusCode: 200, message: " data stored"});
+                        }
+                    }
+                });
+            }
+        }else{
+            console.log(err);
+            user = null ;
+            req.session.token = null ;
+            res.render('pages/logout',{statusCode:200 , message : 'invalid session please login'});
+
+        }
+    });
+});
 
 
 
