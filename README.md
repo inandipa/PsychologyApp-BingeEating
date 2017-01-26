@@ -64,7 +64,7 @@ All the pages in the web app are built based on Bootstrap. All the different pag
 
   ![Alt text](/Screens/Calendar.png?raw=true "Calendar")
 
-- Creating an Appointment - By Clicking the space where you want to create an appointment will by default create a 2 hour meeting event.
+- Creating an Appointment - By Clicking the space where you want to create an appointment will by default create an hour meeting event.
 - Deleting an Appointment - By clcking 'x' on the rignt-bottom corner of the event will delete the event completely from the database and a new view is rendered.
 
   ![Alt text](/Screens/removeEvent.png?raw=true "remove event")
