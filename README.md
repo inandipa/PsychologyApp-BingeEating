@@ -50,7 +50,7 @@ All the pages in the web app are built based on Bootstrap. All the different pag
 - Creating an Appointment - By Clicking the space where you want to create an appointment will by default create a 2 hour meeting event.
 - Deleting an Appointment - By clcking 'x' on the rignt-bottom corner of the event will delete the event completely from the database and a new view is rendered.
 - Modifying an Appointment - Dragging and drop works to change the event from space to another, or drag the bottom end of the event will give you access to modify the duration of the event.
-- Adding Notes for Appointment - By clicking on the event will open up a modal. This modal is text editor, where I used summernote framework to add notes. Summernote will allow us to save the notes in hypertext format which will allow us to save all the beautification(bold,colors,size, etc.).
+- Adding Notes for Appointment - By clicking on the event will open up a modal. This modal is text editor, where I used summernote framework to add notes. Summernote will allow us to save the notes in hypertext format which will allow us to save all the beautification(style,colors,size,images, etc.).
 
 
 ###Framework/Technolgies/Packages used -
