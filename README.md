@@ -18,7 +18,7 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   
   Given the login details, the application will internally evaluate the details whether the details belong to admin / supporter and moves to respective dashboard page.
   
-  ![Alt text](PsychologyApp-BingeEating/Screens/login.png?raw=true "Optional Title")
+  ![Alt text](/Screens/login.png?raw=true "Optional Title")
   
 ###Dashboard Page -
 
