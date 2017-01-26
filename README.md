@@ -18,16 +18,21 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   
   Given the login details, the application will internally evaluate the details whether the details belong to admin / supporter and moves to respective dashboard page.
   
-  ![Alt text](/Screens/login.png?raw=true "Optional Title")
+  ![Alt text](/Screens/login.png?raw=true "Login Page")
   
 ###Dashboard Page -
 
   Dashboard page for the supporter are restricted to adding/remove participant, viewing participant details, making appointments with the participant, sending notes to the participant(s).
   For Admin, adding/removing the supporter is one additional feature which is not given to the supporter.
   
+  ![Alt text](/Screens/dashboard1.png?raw=true "Dashboard Page")
+  
 ####Functionalities in this Page
   - Participant Table: All the participant for the particular supporter are present in the table(Obtained through JSON data). This is provided with Search(filter) and Sort(orderBy) features to quick identification of the participant.
+
+![Alt text](/Screens/dashboard2.png?raw=true "Dashboard Page")
   - Remove Participant: Remove button in provided within the page so that the participant is removed from the supporter list ( used ng-click to remove the participant without refreshing - single page app). function is used in controller to remove the row in real-time from the view.
+  ![Alt text](/Screens/removeUser.png?raw=true "Dashboard Page")
   - Send Notification: Supporter can broadcast/send a short message to the participant which will appear as mobile app notification to the participant. This is enabled using modals. Only the notification enabled participant cna access this feature.
   
 ###Add Participant/Supporter Page - 
