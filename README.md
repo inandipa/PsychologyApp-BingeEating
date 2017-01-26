@@ -30,13 +30,15 @@ All the pages in the web app are built based on Bootstrap. All the different pag
 ####Functionalities in this Page
   - Participant Table: All the participant for the particular supporter are present in the table(Obtained through JSON data). This is provided with Search(filter) and Sort(orderBy) features to quick identification of the participant.
 
-![Alt text](/Screens/dashboard2.png?raw=true "Dashboard Page")
+  ![Alt text](/Screens/dashboard2.png?raw=true "Dashboard Page")
 
   - Remove Participant: Remove button in provided within the page so that the participant is removed from the supporter list ( used ng-click to remove the participant without refreshing - single page app). function is used in controller to remove the row in real-time from the view.
   
-  ![Alt text](/Screens/removeUser.png?raw=true "Dashboard Page")
+  ![Alt text](/Screens/removeUser.png?raw=true "remove user")
   
   - Send Notification: Supporter can broadcast/send a short message to the participant which will appear as mobile app notification to the participant. This is enabled using modals. Only the notification enabled participant cna access this feature.
+  
+  ![Alt text](/Screens/dashboardModal.png?raw=true "remove user")
   
 ###Add Participant/Supporter Page - 
   
@@ -51,14 +53,22 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   - Advancing Step Meter - This meter helps the supporter to promote/demote the participant to higher/lower level respectively. This whole progress bar is built using angular-template for easy access in the html section.
   - Information Table - All the details in the table are obtained in form JSON. (ejs file can access the data which is send while call the page)
   
+  ![Alt text](/Screens/userScreen.png?raw=true "Participant Screen")
+  
 ###Appointment/Calendar Page - 
 
   This page is built using the FullCalendar Framework, which allow us to create events and sent the details in JSON form, and adding event from JSON data.
   
 ####Functionalities in this Page
 - Getting Appointment Details - JSON data can be used to display event in the calendar
+
+  ![Alt text](/Screens/Calendar.png?raw=true "Calendar")
+
 - Creating an Appointment - By Clicking the space where you want to create an appointment will by default create a 2 hour meeting event.
 - Deleting an Appointment - By clcking 'x' on the rignt-bottom corner of the event will delete the event completely from the database and a new view is rendered.
+
+  ![Alt text](/Screens/removeEvent.png?raw=true "remove event")
+  
 - Modifying an Appointment - Dragging and drop works to change the event from space to another, or drag the bottom end of the event will give you access to modify the duration of the event.
 - Adding Notes for Appointment - By clicking on the event will open up a modal. This modal is text editor, where I used summernote framework to add notes. Summernote will allow us to save the notes in hypertext format which will allow us to save all the beautification(style,colors,size,images, etc.).
 
