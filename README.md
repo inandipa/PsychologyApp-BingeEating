@@ -31,8 +31,11 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   - Participant Table: All the participant for the particular supporter are present in the table(Obtained through JSON data). This is provided with Search(filter) and Sort(orderBy) features to quick identification of the participant.
 
 ![Alt text](/Screens/dashboard2.png?raw=true "Dashboard Page")
+
   - Remove Participant: Remove button in provided within the page so that the participant is removed from the supporter list ( used ng-click to remove the participant without refreshing - single page app). function is used in controller to remove the row in real-time from the view.
+  
   ![Alt text](/Screens/removeUser.png?raw=true "Dashboard Page")
+  
   - Send Notification: Supporter can broadcast/send a short message to the participant which will appear as mobile app notification to the participant. This is enabled using modals. Only the notification enabled participant cna access this feature.
   
 ###Add Participant/Supporter Page - 
