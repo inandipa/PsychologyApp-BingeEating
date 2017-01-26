@@ -18,6 +18,8 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   
   Given the login details, the application will internally evaluate the details whether the details belong to admin / supporter and moves to respective dashboard page.
   
+  ![Alt text](/Screens/login.jpg?raw=true "Optional Title")
+  
 ###Dashboard Page -
 
   Dashboard page for the supporter are restricted to adding/remove participant, viewing participant details, making appointments with the participant, sending notes to the participant(s).
