@@ -70,7 +70,12 @@ All the pages in the web app are built based on Bootstrap. All the different pag
   ![Alt text](/Screens/removeEvent.png?raw=true "remove event")
   
 - Modifying an Appointment - Dragging and drop works to change the event from space to another, or drag the bottom end of the event will give you access to modify the duration of the event.
+
+  ![Alt text](/Screens/changeEvent.png?raw=true "Modify Event")
+
 - Adding Notes for Appointment - By clicking on the event will open up a modal. This modal is text editor, where I used summernote framework to add notes. Summernote will allow us to save the notes in hypertext format which will allow us to save all the beautification(style,colors,size,images, etc.).
+
+  ![Alt text](/Screens/notes.png?raw=true "Notes")
 
 
 ###Framework/Technolgies/Packages used -
